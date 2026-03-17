@@ -39,8 +39,8 @@ services:
 
   frontend:
     build:
-      context: ../frontend
-      dockerfile: ../docker/Dockerfile.frontend
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
     ports:
       - "${FRONTEND_PORT:-5173}:80"
     depends_on:
