@@ -7,6 +7,9 @@ terraform {
     }
   }
 
+  # NOTE: You must create this S3 bucket manually before running `terraform init`.
+  # S3 backend cannot use variables. Replace with your actual bucket name.
+  # Run: aws s3 mb s3://your-terraform-state-bucket --region us-east-1
   backend "s3" {
     bucket = "your-terraform-state-bucket"
     key    = "saas/terraform.tfstate"

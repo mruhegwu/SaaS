@@ -9,7 +9,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText(/SaaS Platform/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Welcome to/i })).toBeInTheDocument();
   });
 
   it('redirects unauthenticated users from dashboard to login', () => {
@@ -18,7 +18,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    // Should redirect to login
-    expect(screen.getByText(/Sign In/i)).toBeInTheDocument();
+    // Should redirect to login - look for the form heading
+    expect(screen.getByRole('heading', { name: /Sign In/i })).toBeInTheDocument();
   });
 });

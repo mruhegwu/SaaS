@@ -4,11 +4,23 @@ export const isValidEmail = (email: string): boolean => {
 };
 
 export const isStrongPassword = (password: string): boolean => {
-  return password.length >= 8;
+  if (password.length < 8) return false;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password);
+  return hasUppercase && hasLowercase && hasNumber && hasSpecial;
 };
 
 export const sanitizeString = (str: string): string => {
-  return str.trim().replace(/[<>]/g, '');
+  return str
+    .trim()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
 };
 
 export const isValidUUID = (uuid: string): boolean => {

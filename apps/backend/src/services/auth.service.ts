@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
 import { config } from '../config';
 import { AppError } from '../middleware/errorHandler';
@@ -21,7 +21,9 @@ interface AuthTokens {
   };
 }
 
-// In-memory user store for scaffold (replace with DB in production)
+// ⚠️  WARNING: In-memory user store for scaffold purposes only.
+// All users are lost on server restart. Replace with proper database
+// persistence (e.g., TypeORM + PostgreSQL) before deploying to production.
 const users: Map<
   string,
   { id: string; email: string; passwordHash: string; name: string; role: string }
@@ -72,7 +74,7 @@ export class AuthService {
       const accessToken = jwt.sign(
         { id: decoded.id, email: decoded.email, role: decoded.role },
         config.jwt.secret,
-        { expiresIn: config.jwt.expiresIn }
+        { expiresIn: config.jwt.expiresIn } as SignOptions
       );
 
       return { accessToken };
@@ -91,11 +93,11 @@ export class AuthService {
 
     const accessToken = jwt.sign(payload, config.jwt.secret, {
       expiresIn: config.jwt.expiresIn,
-    });
+    } as SignOptions);
 
     const refreshToken = jwt.sign(payload, config.jwt.refreshSecret, {
       expiresIn: config.jwt.refreshExpiresIn,
-    });
+    } as SignOptions);
 
     return {
       accessToken,
