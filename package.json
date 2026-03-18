@@ -1,0 +1,54 @@
+{
+  "name": "saas-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready SaaS platform scaffold",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "build": "npm run build --workspaces",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "build:frontend": "npm run build --workspace=apps/frontend",
+    "test": "npm run test --workspaces --if-present",
+    "test:backend": "npm run test --workspace=apps/backend",
+    "test:frontend": "npm run test --workspace=apps/frontend",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,yml,yaml}\"",
+    "type-check": "npm run type-check --workspaces --if-present",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
