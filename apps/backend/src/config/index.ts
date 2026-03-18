@@ -1,5 +1,13 @@
+const nodeEnv = process.env.NODE_ENV || 'development';
+
+if (nodeEnv === 'production') {
+  if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET must be set in production');
+  if (!process.env.JWT_REFRESH_SECRET)
+    throw new Error('JWT_REFRESH_SECRET must be set in production');
+}
+
 export const config = {
-  nodeEnv: process.env.NODE_ENV || 'development',
+  nodeEnv,
   port: parseInt(process.env.PORT || '3000', 10),
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
   jwt: {

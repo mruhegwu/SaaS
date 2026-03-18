@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { randomUUID } from 'crypto';
 import { config } from '../config';
 import { AppError } from '../middleware/errorHandler';
 
@@ -34,7 +35,7 @@ export class AuthService {
 
     const passwordHash = await bcrypt.hash(input.password, 12);
     const user = {
-      id: Math.random().toString(36).substring(2),
+      id: randomUUID(),
       email: input.email,
       passwordHash,
       name: input.name,
