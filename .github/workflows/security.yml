@@ -8,10 +8,15 @@ on:
   schedule:
     - cron: '0 8 * * 1' # Weekly on Monday
 
+permissions:
+  contents: read
+
 jobs:
   dependency-audit:
     name: Dependency Audit
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
